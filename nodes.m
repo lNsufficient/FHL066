@@ -24,6 +24,7 @@ Edof = [1 1 2;
 nelm = length(Edof);
 nnod = length(coord);
 ndof = nnod*3;
+a=zeros(ndof,1);
 
 top_dof=3; %z-förskj. i nod 1
 
@@ -33,6 +34,8 @@ nbr_steps=50;
 f=zeros(ndof,1);
 df=f;
 df(top_dof)=P_end/nbr_steps;
+
+K=zeros(ndof);
 
 bc=[];
 for i=5:7
