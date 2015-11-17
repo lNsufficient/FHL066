@@ -9,4 +9,4 @@ L0=norm(bar(ec));
 f_B = es/L0*bar_def(ec,ed);
 f_A = -f_B;
 
-ef = vertcat(f_A,f_B)';
+ef = vertcat(f_A,f_B)'; %returnerar krafterna, sorterade i nod-ordning
