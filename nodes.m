@@ -1,5 +1,5 @@
-data %innehåller värden för att hitta noderna vettigt
-n1 = [L;L*tand(30);h_2]; %y-koordinaten fås genom en tänkt bisektris från 
+data %innehÃ¥ller vÃ¤rden fÃ¶r att hitta noderna vettigt
+n1 = [L;L*tand(30);h_2]; %y-koordinaten fÃ¥s genom en tÃ¤nkt bisektris frÃ¥n 
 %nod 7 till nod 1
 n2 = [L*3/2; L*sind(60);h_1];
 n3 = [L*cosd(60); L*sind(60);h_1];
@@ -22,15 +22,15 @@ Enod = [1 1 2;
         11 4 5;
         12 2 5];
     
-    Edof=[Enod(:,1), node_dof(Enod(:,2:end))];
+    Edof=[Enod(:,1), node_dof(Enod(:,2)),node_dof(Enod(:,3))];
 nelm = length(Enod);
 nnod = length(coord);
 ndof = nnod*3;
 a=zeros(ndof,1);
 
-top_dof=3; %z-förskj. i nod 1
+top_dof=3; %z-fÃ¶rskj. i nod 1
 
-P_end=-10e2; %slutgiltig
+P_end=-10e0; %slutgiltig
 nbr_steps=200;
 
 f=zeros(ndof,1);
