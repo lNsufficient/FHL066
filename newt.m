@@ -1,4 +1,4 @@
-nodes %denna kˆr automatiskt data.m
+nodes %denna k√∂r automatiskt data.m
 
 TOL=1e-4;
 
@@ -10,15 +10,15 @@ for n = 1:nbr_steps
     %u = u
     K=0*K;
    
-    %Skaffa hela K, fˆr alla element.
+    %Skaffa hela K, f√∂r alla element.
     for j = 1:nelm
-        index_dof=Edof(j,2:end); %de frihg stÂngen gr‰nsar till
+        index_dof=Edof(j,2:end); %de frihg st√•ngen gr√§nsar till
         index_nod=Enod(j,2:end); % de noder st gr t
         ec=coord0(index_nod,:)';
-        % ATT G÷RA
+        % ATT G√ñRA
         % plocka ut dof med node_dof
         % 6 st dof, inte bara 2 noder
-% d‰rfˆr blir det helt in i helvete fel
+% d√§rf√∂r blir det helt in i helvete fel
 %
 %
 %
@@ -34,17 +34,21 @@ for n = 1:nbr_steps
         r = f;
         %r =  zeros(ndof,1);
         for j = 1:nelm
-            index_dof=Edof(j,2:end); %de frihg stÂngen gr‰nsar till
+            index_dof=Edof(j,2:end); %de frihg st√•ngen gr√§nsar till
             index_nod=Enod(j,2:end); % de noder st gr t
             ec=coord0(index_nod,:)';
-            [es, ~] = bar3gs(ec,ep,ed);
+            ed=a(index_dof);
+            [es, ee] = bar3gs(ec,ep,ed);
             ef=bar3gf(ec,ed,es);
+            % Varf√∂r ger nedanst√•ende tv√• inte samma resultat?
             r(index_dof) = r(index_dof) - ef;
+            %r(index_dof) = r(index_dof) - (E*A)/L*ee*[eye(3),-eye(3); -eye(3),eye(3)] ...
+              %  *[ec(:,1);ec(:,2)];
         end
         da = solveq(K, r, bc);
         a=a+da;
         r(bc(:,1))=0;
-        res = norm(r);
+        res = norm(r)
         for k=1:3
             coord(:,k) = coord0(:,k)+a(k:3:(end+k-3));
         end
