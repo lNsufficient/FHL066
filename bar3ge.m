@@ -8,7 +8,7 @@ function Ke=bar3ge(ec,ep,ed,es)
 % ed förskjutningar [a1 a2 ... a6]
 % es normalkraft
 
-u=(ed(4:6)-ed(1:3))'; %beräknar förskjutning
+u=(ed(4:6)-ed(1:3)); %beräknar förskjutning
 x0 = bar(ec);
 %l0=sqrt(x0'*x0);
 l0=norm(x0);

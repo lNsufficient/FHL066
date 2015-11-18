@@ -8,7 +8,7 @@ n5 = [2*L;0;0];
 n6 = [L; 2*L*sind(60);0];
 n7 = [0;0;0];
 coord = [n1'; n2'; n3'; n4'; n5'; n6'; n7'];
-
+coord0=coord;
 Edof = [1 1 2;
         2 1 3;
         3 1 4;
@@ -28,7 +28,7 @@ a=zeros(ndof,1);
 
 top_dof=3; %z-förskj. i nod 1
 
--P_end=10e3; %slutgiltig
+P_end=-10e3; %slutgiltig
 nbr_steps=50;
 
 f=zeros(ndof,1);
