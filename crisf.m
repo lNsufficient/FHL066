@@ -1,4 +1,4 @@
-nodes %denna kör automatiskt data.m
+nodes %denna kÃ¶r automatiskt data.m
 
 
 %plot_a = zeros(nbr_steps, 1);
@@ -20,20 +20,20 @@ f_int=P*0;
 %TOL=norm(P_end/nbr_steps)*1e-2;
 l=1e-5;
 l_0=l;
-TOL = l/10;
+TOL = l*1e-3;
 
 TOL_0 = TOL; %what should be considered a zero for pq
 %TOL - what should be considered a zero for res
 
 
-psy=2;
+psy=1e-3;
 Lamb = [0 0 0];
 n=0;
 
 old_a = a; 
 
 while lambda < 1
-    n=n+1;
+    n=n+1
     
     a_i = a;
     lambda_i = lambda;
@@ -52,7 +52,7 @@ while lambda < 1
         
         
         for j = 1:nelm
-            index_dof=Edof(j,2:end); %de frihg stången gränsar till
+            index_dof=Edof(j,2:end); %de frihg stÃ¥ngen grÃ¤nsar till
             index_nod=Enod(j,2:end); % de noder st gr t
             ec=coord0(index_nod,:)';
             
@@ -67,28 +67,31 @@ while lambda < 1
         da_G = solveq(K,-G,bc);
         da_P = solveq(K,P,bc);
         
-        [n,norm(da_G)]
+        %[n,norm(da_G)]
         
         delta_a=a_i-a;
         delta_lambda=lambda_i-lambda; 
         [a1, a2, a3, a4, a5] = calc_a(P, delta_a, delta_lambda, da_P, da_G, l, psy);
         
         if i > 1
-            %             if (abs(a2^2-a3*2*a1)<TOL_0) %Detta motsvarar att b�da r�tterna
-            %                 %�r samma.
+            %             if (abs(a2^2-a3*2*a1)<TOL_0) %Detta motsvarar att båda rötterna
+            %                 %är samma.
             %                 d_lambda = -a2/(2*a1);
             %                 Lamb = Lamb + [1 0 0];
-            %             elseif ((a2/(2*a1)^2-a3/a1) < 0) %H�r r�cker det att kolla om det �r
-            %                 %mindre �n noll, -TOL_0 t�cks av if-satsen
+            %             elseif ((a2/(2*a1)^2-a3/a1) < 0) %Här räcker det att kolla om det är
+            %                 %mindre än noll, -TOL_0 täcks av if-satsen
             %                 disp('Complex Solutions')
             %                 Lamb = Lamb + [0 1 0];
             %             else
 
             
             %s=sign(delta_a'*da_P);
-            d_lambda_test=l/(sqrt(da_P'*da_P+psy*P'*P));
-            if (a4+a5*d_lambda_test < a4-a5*d_lambda_test)
-                d_lambda_test=-d_lambda_test;
+            p=a2/a1;        q=a3/a1;
+            d_lambda_test=-p/2+sqrt((p/2)^2-q)*[1; -1];
+            if (a4+a5*d_lambda_test(1) > a4+a5*d_lambda_test(2))
+                d_lambda_test=d_lambda_test(1);
+            else
+                d_lambda_test=d_lambda_test(2);
             end
 
             %                 Lamb = Lamb + [0 0 1];
@@ -152,6 +155,10 @@ while lambda < 1
     plot_f(n) = lambda*P_end;
     plot_a(n) = a(top_dof);
     
+    if mod(n,5000)==0
+        keyboard;
+    end
+    
 end
 
 
@@ -160,7 +167,7 @@ end
 d_lambda = (plot_f(2:end) - plot_f(1:end-1))/P_end;
 plot(real(d_lambda))
 plot(plot_a, plot_f)
-xlabel('f�rskjutning / meter')
+xlabel('förskjutning / meter')
 ylabel('kraft / Newton')
 
 
