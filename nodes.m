@@ -45,4 +45,4 @@ for i=5:7
 end
 
 [Ex,Ey,Ez]=coordxtr(Edof,coord,node_dof((1:nnod)'),2);
-eldraw2(Ex,Ez,[1 4 1]);
+%eldraw2(Ex,Ez,[1 4 1]);

@@ -1,0 +1,10 @@
+mabs(G)
+mabs(a)
+mabs(plot_f)
+d_lambda
+a1
+a2
+a3
+mabs(da_G)
+mabs(da_P)
+mabs(delta_a)
