@@ -36,7 +36,7 @@ for n = 1:nbr_steps
     while res > TOL
         count = count+1;
         r = f;
-        %K=K*0;
+        K=K*0;
         %r =  zeros(ndof,1);
         for j = 1:nelm
             index_dof=Edof(j,2:end); %de frihg stången gränsar till
@@ -46,8 +46,8 @@ for n = 1:nbr_steps
             [es, ee] = bar3gs(ec,ep,ed);
             ef=bar3gf(ec,ed,es);
             r(index_dof) = r(index_dof) - ef;
-        %Ke = bar3ge(ec,ep,ed,es);
-        %K(index_dof,index_dof)=K(index_dof,index_dof)+Ke;
+        Ke = bar3ge(ec,ep,ed,es);
+        K(index_dof,index_dof)=K(index_dof,index_dof)+Ke;
         end
         da = solveq(K, r, bc);
         a=a+da;
