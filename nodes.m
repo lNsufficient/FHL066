@@ -30,7 +30,7 @@ a=zeros(ndof,1);
 
 top_dof=3; %z-förskj. i nod 1
 
-P_end=-10e1; %slutgiltig
+P_end=-5e-2; %slutgiltig
 nbr_steps=1000;
 
 f=zeros(ndof,1);
@@ -45,4 +45,4 @@ for i=5:7
 end
 
 [Ex,Ey,Ez]=coordxtr(Edof,coord,node_dof((1:nnod)'),2);
-eldraw2(Ex,Ey,[1 4 1]);
+eldraw2(Ex,Ez,[1 4 1]);

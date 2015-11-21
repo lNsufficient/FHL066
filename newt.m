@@ -1,6 +1,6 @@
 nodes %denna kör automatiskt data.m
 
-TOL=1e-4;
+TOL=norm(df)*1e-3;
 
 plot_a = zeros(nbr_steps, 1);
 plot_f = zeros(nbr_steps, 1);
@@ -30,8 +30,13 @@ for n = 1:nbr_steps
     
     
     res=TOL+1;
+    
+    count=0;
+    
     while res > TOL
+        count = count+1;
         r = f;
+        %K=K*0;
         %r =  zeros(ndof,1);
         for j = 1:nelm
             index_dof=Edof(j,2:end); %de frihg stången gränsar till
@@ -40,15 +45,15 @@ for n = 1:nbr_steps
             ed=a(index_dof);
             [es, ee] = bar3gs(ec,ep,ed);
             ef=bar3gf(ec,ed,es);
-            % Varför ger nedanstående två inte samma resultat?
             r(index_dof) = r(index_dof) - ef;
-            %r(index_dof) = r(index_dof) - (E*A)/L*ee*[eye(3),-eye(3); -eye(3),eye(3)] ...
-              %  *[ec(:,1);ec(:,2)];
+        %Ke = bar3ge(ec,ep,ed,es);
+        %K(index_dof,index_dof)=K(index_dof,index_dof)+Ke;
         end
         da = solveq(K, r, bc);
         a=a+da;
         r(bc(:,1))=0;
-        res = norm(r)
+        res = norm(r);
+        %[res,norm(da)]
         for k=1:3
             coord(:,k) = coord0(:,k)+a(k:3:(end+k-3));
         end
@@ -56,4 +61,9 @@ for n = 1:nbr_steps
     plot_f(n) = f(top_dof);
     plot_a(n) = a(top_dof);
 end
-plot(f, a)
+
+%%
+%plot(abs(plot_a), abs(plot_f))
+plot(plot_a, plot_f)
+xlabel('f�rskjutning / meter')
+ylabel('kraft / Newton')
