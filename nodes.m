@@ -30,7 +30,7 @@ a=zeros(ndof,1);
 
 top_dof=3; %z-förskj. i nod 1
 
-P_end=-5e-2; %slutgiltig
+P_end=-1.5e-2; %slutgiltig
 nbr_steps=1000;
 
 f=zeros(ndof,1);
