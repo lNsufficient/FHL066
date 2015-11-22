@@ -44,5 +44,5 @@ for i=5:7
     bc = [bc; node_dof(i)', zeros(3,1)];
 end
 
-[Ex,Ey,Ez]=coordxtr(Edof,coord,node_dof((1:nnod)'),2);
-%eldraw2(Ex,Ez,[1 4 1]);
+[Ex0,Ey0,Ez0]=coordxtr(Edof,coord0,node_dof((1:nnod)'),2);
+eldraw3(Ex0,Ey0,Ez0,[1 4 1]);
