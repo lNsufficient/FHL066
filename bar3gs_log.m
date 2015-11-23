@@ -14,4 +14,4 @@ L = norm(bar_def(ec,ed));
 
 ee = (L^2-L0^2)/(2*L0^2);
 
-es=(E*log(2*ee+1))/(4*sqrt(2*ee+1));
+es=A0*E*log(2*ee+1)/(4*sqrt(2*ee+1));
