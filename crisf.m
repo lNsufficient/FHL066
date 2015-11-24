@@ -11,14 +11,14 @@ lambda=0;
 S=0;
 
 P = zeros(ndof,1);
-P_end=-.5;
+P_end=-.15;
 P(top_dof) = P_end;
 G = P*0;
 f_int=P*0;
 
 
 %TOL=norm(P_end/nbr_steps)*1e-2;
-l=1e-5;
+l=1e-3;
 l_0=l;
 TOL = l*1e-3;
 
@@ -26,14 +26,17 @@ TOL_0 = TOL; %what should be considered a zero for pq
 %TOL - what should be considered a zero for res
 
 
-psy=1e-3;
+psy=1/44;
 Lamb = [0 0 0];
 n=0;
 
 old_a = a; 
 
+USE_HOOKE = 0;
+continuous_plot = 0;
+
 while lambda < 1
-    n=n+1
+    n=n+1   
     
     a_i = a;
     lambda_i = lambda;
@@ -57,8 +60,13 @@ while lambda < 1
             ec=coord0(index_nod,:)';
             
             ed=a_i(index_dof);
-            [es,~]=bar3gs(ec,ep,ed);
-            Ke = bar3ge(ec,ep,ed,es);
+            if USE_HOOKE
+                [es,~]=bar3gs(ec,ep,ed);
+                Ke = bar3ge(ec,ep,ed,es);
+            else
+                [es,eps]=bar3gs_log(ec,ep,ed);
+                Ke = bar3ge_log(ec,ep,ed,es,eps);
+            end
             K(index_dof,index_dof)=K(index_dof,index_dof)+Ke;
             ef=bar3gf(ec,ed,es);
             f_int(index_dof) = f_int(index_dof) + ef;
@@ -113,7 +121,7 @@ while lambda < 1
             
             s=1;
         end   
-        if abs(imag(d_lambda_test)>1e-11)
+        if ~isreal(d_lambda_test)
             keyboard
             l = l/2;
             continue;
@@ -159,6 +167,15 @@ while lambda < 1
         keyboard;
     end
     
+    if continuous_plot
+        for k=1:3
+                coord(:,k) = coord0(:,k)+a(k:3:(end+k-3));
+        end
+        [Ex,Ey,Ez]=coordxtr(Edof,coord,node_dof((1:nnod)'),2);
+        clf;
+        eldraw3(Ex,Ey,Ez,[1 4 1]);
+        pause;
+    end
 end
 
 
@@ -170,5 +187,8 @@ plot(plot_a, plot_f)
 xlabel('förskjutning / meter')
 ylabel('kraft / Newton')
 
-
-    
+ for k=1:3
+            coord(:,k) = coord0(:,k)+a(k:3:(end+k-3));
+ end
+[Ex,Ey,Ez]=coordxtr(Edof,coord,node_dof((1:nnod)'),2);
+eldraw3(Ex,Ey,Ez,[1 4 1]);
