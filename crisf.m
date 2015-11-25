@@ -1,3 +1,8 @@
+perturb_switch = 1;
+%0. ingen störn
+%1. störn i geometri
+%2. störn i lasten
+
 nodes %denna kÃƒÂ¶r automatiskt data.m
 
 
@@ -12,13 +17,18 @@ S=0;
 
 P = zeros(ndof,1);
 P_end=-.15;
-P(top_dof) = P_end;
+if perturb_switch == 2
+    P(top_dof) = P_end*cosd(12);
+    P(top_dof-1) = P_end*sind(12);
+else
+    P(top_dof) = P_end;
+end
 G = P*0;
 f_int=P*0;
 
 
 %TOL=norm(P_end/nbr_steps)*1e-2;
-l=1e-3;
+l=4e-4;
 l_0=l;
 TOL = l*1e-3;
 
@@ -32,7 +42,7 @@ n=0;
 
 old_a = a; 
 
-USE_HOOKE = 0;
+USE_HOOKE = 1;
 continuous_plot = 0;
 
 while lambda < 1
@@ -186,6 +196,10 @@ plot(real(d_lambda))
 plot(plot_a, plot_f)
 xlabel('fÃ¶rskjutning / meter')
 ylabel('kraft / Newton')
+A = zeros(length(plot_a), 3);
+F = zeros(length(plot_f), 3);
+A(:,perturb_switch+1) = plot_a;
+F(:,perturb_switch+1) = plot_f;
 
  for k=1:3
             coord(:,k) = coord0(:,k)+a(k:3:(end+k-3));

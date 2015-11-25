@@ -1,4 +1,6 @@
 data %innehåller värden för att hitta noderna vettigt
+
+
 n1 = [L;L*tand(30);h_2]; %y-koordinaten fås genom en tänkt bisektris från 
 %nod 7 till nod 1
 n2 = [L*3/2; L*sind(60);h_1];
@@ -7,6 +9,12 @@ n4 = [L;0;h_1];
 n5 = [2*L;0;0];
 n6 = [L; 2*L*sind(60);0];
 n7 = [0;0;0];
+
+if (perturb_switch == 1)
+    skewing=0.012;
+    n1 = [L; L*tand(30)-skewing; h_2];
+end
+
 coord = [n1'; n2'; n3'; n4'; n5'; n6'; n7'];
 coord0=coord;
 Enod = [1 1 2;
@@ -22,15 +30,15 @@ Enod = [1 1 2;
         11 4 5;
         12 2 5];
     
-    Edof=[Enod(:,1), node_dof(Enod(:,2)),node_dof(Enod(:,3))];
+Edof=[Enod(:,1), node_dof(Enod(:,2)),node_dof(Enod(:,3))];
 nelm = length(Enod);
 nnod = length(coord);
 ndof = nnod*3;
 a=zeros(ndof,1);
 
 top_dof=3; %z-förskj. i nod 1
-
 P_end=-1.5e-2; %slutgiltig
+
 nbr_steps=1000;
 
 f=zeros(ndof,1);
