@@ -5,9 +5,9 @@ function Ke=bar3ge_log(ec,ep,ed,es,eps)
 % ---
 % ec odeformerade koordinater [x1 x2; y1 y2 ; z1 z2]
 % ep materialparametrar [E A0]
-% ed förskjutningar [a1 a2 ... a6]
+% ed fï¿½rskjutningar [a1 a2 ... a6]
 % es normalkraft
-% eps greentöjning
+% eps greentï¿½jning
 
 x0 = bar(ec);
 %l0=sqrt(x0'*x0);
@@ -27,7 +27,7 @@ Ke = (A_0/l_0)*(dsde*[x;-x]*dedu+S*dxdu);
 % 
 % 
 % 
-% u=(ed(4:6)-ed(1:3)); %beräknar förskjutning
+% u=(ed(4:6)-ed(1:3)); %berï¿½knar fï¿½rskjutning
 % 
 % E=ep(1); A0 = ep(2);
 % 

@@ -66,7 +66,7 @@ for n = 1:nbr_steps
     plot_f(n) = f(top_dof);
     plot_a(n) = a(top_dof);
 end
-plot(abs(plot_a), abs(plot_f))
+plot((plot_a), (plot_f))
 xlabel('förskjutning / meter')
 ylabel('kraft / Newton')
 

@@ -1,7 +1,7 @@
-perturb_switch = 1;
-%0. ingen störn
-%1. störn i geometri
-%2. störn i lasten
+perturb_switch = 0;
+%0. ingen stï¿½rn
+%1. stï¿½rn i geometri
+%2. stï¿½rn i lasten
 
 nodes %denna kÃƒÂ¶r automatiskt data.m
 
@@ -42,7 +42,7 @@ n=0;
 
 old_a = a; 
 
-USE_HOOKE = 1;
+USE_HOOKE = 0;
 continuous_plot = 0;
 
 while lambda < 1
