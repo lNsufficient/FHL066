@@ -1,4 +1,4 @@
-
+perturb_switch=0;
 nodes %denna kör automatiskt data.m
 
 TOL=norm(df)*1e-3;
